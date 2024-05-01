@@ -1,27 +1,40 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const initialBoard = [[null, null, null], [null, null, null], [null, null, null]];
-const GameBoard = ({ onSelectSquare, activeSymbol }) => {
+const GameBoard = ({ onSelectSquare, gameTurns }) => {
     // Your component logic goes here
-    const [board, setBoard] = useState(initialBoard);
-    const handleClick = (rowIndex, colIndex) => {
-        setBoard((preBoard) => {
-            // create a new array from the previous board, copied nested arrays
-            const updatedBoard = [...preBoard.map(innerArray => [...innerArray])];
-            updatedBoard[rowIndex][colIndex] = activeSymbol;
-            return updatedBoard;
-        })
-        onSelectSquare();
+
+    // create array based on gameTurns
+    let gameBoard = initialBoard
+
+    // derive 
+    for (const turn of gameTurns) {
+        const {square, player} = turn;
+        const {row, col} = square;
+
+        gameBoard[row][col] = player;
     }
+
+
+    // const [board, setBoard] = useState(initialBoard);
+    // const handleClick = (rowIndex, colIndex) => {
+    //     setBoard((preBoard) => {
+    //         // create a new array from the previous board, copied nested arrays
+    //         const updatedBoard = [...preBoard.map(innerArray => [...innerArray])];
+    //         updatedBoard[rowIndex][colIndex] = activeSymbol;
+    //         return updatedBoard;
+    //     })
+    //     onSelectSquare();
+    // }
     return (
         <ol id="game-board">
-            {board.map((row, rowIndex) => {
+            {gameBoard.map((row, rowIndex) => {
                 return( 
                     <li key={rowIndex} className="row">
                         <ol>
                             {row.map((playerSymbol, colIndex) => {
                                 return (
-                                    <li key={colIndex}><button onClick={()=> handleClick(rowIndex, colIndex)}>{playerSymbol}</button></li>
+                                    <li key={colIndex}><button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button></li>
                                 )
                             })}
                         </ol>
