@@ -34,7 +34,11 @@ const GameBoard = ({ onSelectSquare, gameTurns }) => {
                         <ol>
                             {row.map((playerSymbol, colIndex) => {
                                 return (
-                                    <li key={colIndex}><button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button></li>
+                                    <li key={colIndex}>
+                                        <button onClick={() => onSelectSquare(rowIndex, colIndex)} disabled={!!playerSymbol}>
+                                            {playerSymbol}
+                                        </button>
+                                    </li>
                                 )
                             })}
                         </ol>

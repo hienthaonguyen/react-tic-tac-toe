@@ -3,18 +3,24 @@ import Player from './components/Player'
 import GameBoard from './components/GameBoard'
 import Log from './components/Log'
 
+// create helper function for currentPlayer
+const deriveActivePlayer = (gameTurns) => {
+  let currentPlayer = 'X';
+
+  if (gameTurns.length > 0 && gameTurns[0].player === 'X'){
+    currentPlayer = 'O';
+  }
+  return currentPlayer;
+}
+
 function App() {
   const [gameTurns, setGameTurns] = useState([])
-  const [activePlayer, setActivePlayer] = useState('X')
+
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   const handleSelectSquare = (rowIndex, colIndex) => {
-    setActivePlayer((cur) => cur === 'X' ? 'O' : 'X')
     setGameTurns((prevTurn)=>{
-      let currentPlayer = 'X';
-
-      if (prevTurn.length > 0 && prevTurn[0].player === 'X'){
-        currentPlayer = 'O';
-      }
+      const currentPlayer = deriveActivePlayer(prevTurn);
 
       const updatedTurns = [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...prevTurn]
       return updatedTurns;

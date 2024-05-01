@@ -6,7 +6,7 @@ const Log = ({gameTurns}) => {
         <ol id="log">
             {gameTurns.map((turn) => {
                 return(
-                    <li className={index ? "highlighted" : ""} key={`${turn.square.row}${turn.square.col+1}`}>
+                    <li className={"highlighted" } key={`${turn.square.row}${turn.square.col+1}`}>
                         {playerName(turn.player)} played at row {turn.square.row + 1}, col {turn.square.col+1}
                     </li>
                 )})
