@@ -7,9 +7,10 @@ const Player = ({name, symbol, isActive}) => {
     const handleClick = () => {
         // toggle isEditing
         setIsEditing((editing) => !editing);
+        onchangeName(symbol, playerName);
     }
     return (
-        <li className={isActive ? 'active' : ""}>
+        <li className={isActive ? 'active' :  ""}>
             <span className="player">
                 {
                     isEditing ? <input type="text" required value={playerName} onChange={(e) => setPlayerName(e.target.value)}/> : 
